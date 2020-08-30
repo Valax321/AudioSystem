@@ -1,0 +1,17 @@
+{
+    "name": "Valax321.AudioSystem.Editor",
+    "references": [
+        "GUID:567a5b315f470284eb9e608e5c8b76ca"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

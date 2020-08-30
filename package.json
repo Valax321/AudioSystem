@@ -1,0 +1,8 @@
+{
+  "name": "com.valax321.audiosystem",
+  "displayName": "Valax321 Audio System",
+  "version": "0.1.0",
+  "unity": "2018.1",
+  "description": "A robust game audio system built over the top of unity audio.",
+  "type": "library"
+}
