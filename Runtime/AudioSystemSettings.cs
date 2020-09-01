@@ -11,8 +11,6 @@ namespace Valax321.AudioSystem
     [HelpURL("https://github.com/Valax321/AudioSystem/Documentation~/AudioSystemSettings.md")]
     public class AudioSystemSettings : ScriptableObject
     {
-        [SerializeField, Min(0)] private int m_initialPoolSize = 100;
-
-        public int initialPoolSize => m_initialPoolSize;
+        [SerializeField] private bool m_hideInternalComponents = true;
     }
 }

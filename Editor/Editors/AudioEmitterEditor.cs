@@ -42,7 +42,10 @@ namespace Valax321.AudioSystem.Editor
             EditorGUILayout.PropertyField(m_destroyOnComplete);
             
             EditorGUILayout.Separator();
+            EditorGUILayout.LabelField("Emitter Properties", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(m_overrideEmitterProperties);
+            
+            EditorGUILayout.Separator();
             using (var disabled = new EditorGUI.DisabledGroupScope(!m_overrideEmitterProperties.boolValue))
             {
                 EditorGUILayout.PropertyField(m_emitterProperties);
@@ -54,9 +57,9 @@ namespace Valax321.AudioSystem.Editor
             }
         }
 
-        [DrawGizmo(GizmoType.InSelectionHierarchy, typeof(AudioEmitter))]
-        private static void DrawGizmos(AudioEmitter component, GizmoType gizmoType)
+        private void OnSceneGUI()
         {
+            var component = target as AudioEmitter;
             EmitterProperties props = null;
             
             if (component.overrideEmitterProperties)
@@ -76,11 +79,18 @@ namespace Valax321.AudioSystem.Editor
 
             var t = component.transform;
 
-            var c = Gizmos.color;
-            Gizmos.color = new Color(215, 173, 8);
-            Gizmos.DrawWireSphere(t.position, props.minRange);
-            Gizmos.DrawWireSphere(t.position, props.maxRange);
-            Gizmos.color = c;
+            var c = Handles.color;
+            Handles.color = Color.yellow;
+            DrawSphere(t.position, props.minRange);
+            DrawSphere(t.position, props.maxRange);
+            Handles.color = c;
+        }
+
+        private void DrawSphere(Vector3 pos, float radius)
+        {
+            Handles.DrawWireDisc(pos, Vector3.up, radius);
+            Handles.DrawWireDisc(pos, Vector3.forward, radius);
+            Handles.DrawWireDisc(pos, Vector3.right, radius);
         }
     }
 }

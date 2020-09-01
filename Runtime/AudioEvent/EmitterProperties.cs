@@ -12,12 +12,18 @@ namespace Valax321.AudioSystem
         
         [Tooltip("Blend between 2d and 3d playback spaces.")]
         [SerializeField, Range(0, 1)] private float m_blendSpace;
+
+        [Tooltip("Control for how much the doppler effect is applied to this sound.")]
+        [SerializeField, Range(0, 1)] private float m_dopplerLevel;
         
-        [Tooltip("The minimum sound range.")]
-        [SerializeField, Min(0)] private float m_minRange = 1.0f;
-        
-        [Tooltip("The maximum sound range.")]
-        [SerializeField, Min(0)] private float m_maxRange = 50.0f;
+        [Tooltip("The sound's min and max range.")]
+        [SerializeField] private FloatRange m_range = new FloatRange(1, 50);
+
+        [Tooltip("The rolloff mode for this sound in 3d space.")]
+        [SerializeField] private AudioRolloffMode m_rolloffMode = AudioRolloffMode.Linear;
+
+        [Tooltip("Custom rolloff curve for when rolloffMode is set to custom.")] [SerializeField]
+        private AnimationCurve m_customRolloffCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
         /// <summary>
         /// Should this event be spatialized when played?
@@ -37,13 +43,19 @@ namespace Valax321.AudioSystem
             set => m_blendSpace = value;
         }
 
+        public float dopplerScale
+        {
+            get => m_dopplerLevel;
+            set => m_dopplerLevel = value;
+        }
+
         /// <summary>
         /// The minimum sound range.
         /// </summary>
         public float minRange
         {
-            get => m_minRange;
-            set => m_minRange = value;
+            get => m_range.min;
+            set => m_range.min = value;
         }
 
         /// <summary>
@@ -51,8 +63,16 @@ namespace Valax321.AudioSystem
         /// </summary>
         public float maxRange
         {
-            get => m_maxRange;
-            set => m_maxRange = value;
+            get => m_range.max;
+            set => m_range.max = value;
         }
+
+        public AudioRolloffMode rolloffMode
+        {
+            get => m_rolloffMode;
+            set => m_rolloffMode = value;
+        }
+
+        public AnimationCurve customRolloffCurve => m_customRolloffCurve;
     }
 }
