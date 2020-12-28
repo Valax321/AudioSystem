@@ -6,7 +6,7 @@ using Valax321.AudioSystem.Utility;
 
 namespace Valax321.AudioSystem
 {
-    [AddComponentMenu("Audio/Audio System/Playback Manager (DO NOT ADD)")]
+    [AddComponentMenu("")]
     public class PlaybackManager : MonoBehaviour
     {
         /// <summary>
