@@ -82,7 +82,7 @@ namespace Valax321.AudioSystem
         }
 
         /// <inheritdoc cref="PlaybackManager.PlayAttached"/>
-        public static AudioEmitter PlayAttached(this AudioEvent @event, Transform parent, Vector3 offset, Space space)
+        public static AudioEmitter PlayAttached(this AudioEvent @event, Transform parent, Vector3 offset, Space space = Space.Self)
         {
             return PlaybackManager.PlayAttached(@event, parent, offset, space);
         }

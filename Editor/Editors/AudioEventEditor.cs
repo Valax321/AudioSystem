@@ -27,7 +27,10 @@ namespace Valax321.AudioSystem.Editor
         private SerializedProperty m_loop;
         private SerializedProperty m_mixerGroup;
         
+        // In 2020.2 or later array inspectors are good enough that we don't need to manually do this.
+        #if !UNITY_2020_2_OR_NEWER
         private ReorderableList m_clipsList;
+        #endif
 
         private SerializedProperty m_emitter;
 
@@ -45,6 +48,7 @@ namespace Valax321.AudioSystem.Editor
             m_loop = serializedObject.FindProperty("m_loop");
             m_mixerGroup = serializedObject.FindProperty("m_mixerGroup");
 
+#if !UNITY_2020_2_OR_NEWER
             m_clipsList = new ReorderableList(serializedObject, m_clips, true, true, true, true);
             m_clipsList.drawHeaderCallback += rect => { EditorGUI.LabelField(rect, m_clips.displayName); };
             m_clipsList.drawElementCallback += (rect, index, active, focused) =>
@@ -55,6 +59,7 @@ namespace Valax321.AudioSystem.Editor
             };
             m_clipsList.elementHeightCallback +=
                 index => EditorGUI.GetPropertyHeight(m_clips.GetArrayElementAtIndex(index)) + 4;
+#endif
         }
 
         private void GetEmitterProperties()
@@ -85,9 +90,11 @@ namespace Valax321.AudioSystem.Editor
                 EditorGUILayout.PropertyField(m_clipPlayMode);
                 EditorGUILayout.PropertyField(m_volume);
                 EditorGUILayout.PropertyField(m_loop);
-
+                
+#if !UNITY_2020_2_OR_NEWER
                 EditorGUILayout.Separator();
-                m_clipsList.DoLayoutList();
+                m_clipsList.DoLayoutList()
+#endif
             }
             
             if (draw != unfold)
@@ -96,6 +103,10 @@ namespace Valax321.AudioSystem.Editor
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
+            
+            #if UNITY_2020_2_OR_NEWER
+            EditorGUILayout.PropertyField(m_clips);
+            #endif
         }
 
         private void DrawEmitterProperties()
